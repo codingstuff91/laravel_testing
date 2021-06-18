@@ -14,7 +14,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        //
+        return Game::all();
     }
 
     /**
@@ -35,7 +35,8 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new_game = Game::create($request->all());
+        return $new_game;
     }
 
     /**
