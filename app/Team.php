@@ -16,6 +16,17 @@ class Team extends Model
         $this->members()->save($user);
     }
 
+    public function removeMember($user)
+    {
+        $user = User::find($user)->first();
+        $user->delete();
+    }
+
+    public function removeAllMembers()
+    {
+        $this->members()->delete();
+    }
+
     public function members()
     {
         return $this->hasMany(User::class);
