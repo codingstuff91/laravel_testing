@@ -35,4 +35,23 @@ class TeamTest extends TestCase
 
         $this->assertEquals(5, $team->size);
     }
+
+    /** @test */
+    public function a_team_has_a_maximum_size()
+    {
+        $team = Factory(Team::class)->create(['size' => 2]);
+
+        $user = Factory(User::class)->create();
+        $user2 = Factory(User::class)->create();
+        
+        $team->add($user);
+        $team->add($user2);
+        
+        $this->expectException('exception');
+        
+        $user3 = Factory(User::class)->create();
+        $team->add($user3);
+
+        $this->assertEquals(3, $team->countMembers());
+    }
 }
