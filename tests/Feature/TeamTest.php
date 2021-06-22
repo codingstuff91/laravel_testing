@@ -12,12 +12,8 @@ class TeamTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_a_team_has_a_name()
+    /** @test */
+    public function a_team_has_a_name()
     {
         $team = new Team(['name' => "Developpers"]);
 
@@ -33,7 +29,7 @@ class TeamTest extends TestCase
 
         $team->add($user);
 
-        $this->assertEquals(5, $team->size);
+        $this->assertEquals(1, $team->countMembers());
     }
 
     /** @test */
