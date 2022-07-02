@@ -41,6 +41,19 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    public function it_needs_a_name()
+    {
+        $this->withExceptionHandling();
+
+        $user = $this->post('/users', [
+            'email' => 'mattou2812@gmail.com',
+            'password' => 'secret'
+        ]);
+
+        $user->assertSessionHasErrors('name');
+    }
+
+    /** @test */
     public function it_can_update_the_user_name()
     {
         $user = factory(User::class)->create();
