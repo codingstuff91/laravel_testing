@@ -40,17 +40,43 @@ class UserTest extends TestCase
         $user->assertStatus(201);
     }
 
+    protected function validFields($overrides)
+    {
+        return array_merge([
+            'name' => 'John Doe',
+            'email' => 'johndoe@gmail.com',
+            'password' => 'secret'
+        ], $overrides);
+    }
+
     /** @test */
-    public function it_needs_a_name()
+    public function it_requires_a_name()
     {
         $this->withExceptionHandling();
 
-        $user = $this->post('/users', [
-            'email' => 'mattou2812@gmail.com',
-            'password' => 'secret'
-        ]);
+        $user = $this->post('/users', $this->validFields(['name' => '']));
 
         $user->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function it_requires_an_email()
+    {
+        $this->withExceptionHandling();
+
+        $user = $this->post('/users', $this->validFields(['email' => '']));
+
+        $user->assertSessionHasErrors('email');
+    }
+
+    /** @test */
+    public function it_requires_a_password()
+    {
+        $this->withExceptionHandling();
+
+        $user = $this->post('/users', $this->validFields(['password' => '']));
+
+        $user->assertSessionHasErrors('password');
     }
 
     /** @test */
